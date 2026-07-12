@@ -9,7 +9,7 @@ client = TestClient(app)
 def test_criar_boia():
     payload = {
         "nome": "Boia RJ-001",
-        "codigo": "RJ001",
+        "numero_serie": "OW-0002",
         "latitude": -22.90,
         "longitude": -43.20,
     }
@@ -17,5 +17,5 @@ def test_criar_boia():
     response = client.post("/boias", json=payload)
 
     assert response.status_code == 200
-    assert response.json()["mensagem"] == "Boia cadastrada com sucesso!"
-    assert response.json()["dados"]["codigo"] == "RJ001"
+    assert response.json()["nome"] == "Boia RJ-001"
+    assert response.json()["numero_serie"] == "OW-0002"

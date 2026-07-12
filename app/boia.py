@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database.dependencies import get_db
@@ -15,4 +15,10 @@ def criar_boia(
     boia: BoiaCreate,
     db: Session = Depends(get_db)
 ):
-    return service.criar_boia(db, boia)
+    try:
+        return service.criar_boia(db, boia)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(exc),
+        ) from exc
