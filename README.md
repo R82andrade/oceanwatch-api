@@ -2,31 +2,40 @@
 
 API para cadastrar boias de monitoramento oceânico, desenvolvida com FastAPI, SQLAlchemy e SQLite.
 
+## Status da implementação
+
+- OK: Model `Leitura`
+- OK: Schema `LeituraCreate`
+- OK: Repository `LeituraRepository`
+- OK: Service `LeituraService`
+- OK: Router `POST /leituras/` registrado no FastAPI
+- OK: Criação de leitura validada pelo Swagger
+
 ## Como rodar o sistema
 
 1. Crie e ative um ambiente virtual:
 
    ```powershell
-   python -m venv .venv
+   python -m venv .venv   OK
    .\.venv\Scripts\Activate.ps1
    ```
 
 2. Instale as dependências:
 
    ```powershell
-   pip install -r requirements.txt
+   pip install -r requirements.txt   Ok
    ```
 
 3. Crie o banco de dados e as tabelas. Execute uma vez, na raiz do projeto:
 
    ```powershell
-   python -c "from app.database.base import Base; from app.database.database import engine; import app.models.boia; Base.metadata.create_all(bind=engine)"
+   python -c "from app.database.base import Base; from app.database.database import engine; import app.models.boia; import app.models.leitura; Base.metadata.create_all(bind=engine)"
    ```
 
 4. Inicie a API:
 
    ```powershell
-   uvicorn app.main:app --reload
+   uvicorn app.main:app --reload  
    ```
 
 5. Acesse a documentação interativa em [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
@@ -73,7 +82,7 @@ Exemplo de requisição:
 Exemplo com PowerShell:
 
 ```powershell
-Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/boias" -ContentType "application/json" -Body '{"nome":"Boia RJ-001","numero_serie":"OW-0002","latitude":-22.90,"longitude":-43.20}'
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/boias" -ContentType "application/json" -Body '{"nome":"Boia RJ-001","numero_serie":"OW-0003","latitude":-22.90,"longitude":-43.20}'
 ```
 
 Em caso de sucesso, a API responde com os dados cadastrados, incluindo o `id`. O campo `numero_serie` deve ser único; se já existir, a API retorna `409 Conflict`.
