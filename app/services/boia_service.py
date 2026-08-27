@@ -12,3 +12,9 @@ class BoiaService:
     def criar_boia(self, db: Session, boia: BoiaCreate):
         return self.repository.criar_boia(db, boia)
 
+    def listar_boias(self, db: Session):
+        return self.repository.listar_boias(db)
+
+    def buscar_boia_por_id(self, db: Session, boia_id: int):
+        return self.repository.buscar_boia_por_id(db, boia_id)
+

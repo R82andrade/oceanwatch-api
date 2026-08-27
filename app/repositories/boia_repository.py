@@ -24,3 +24,9 @@ class BoiaRepository:
         except IntegrityError:
             db.rollback()
             raise ValueError("Já existe uma boia com este número de série.")
+
+    def listar_boias(self, db: Session):
+        return db.query(Boia).all()
+
+    def buscar_boia_por_id(self, db: Session, boia_id: int):
+        return db.query(Boia).filter(Boia.id == boia_id).first()
