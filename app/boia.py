@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.database.dependencies import get_db
-from app.schemas.boia import BoiaCreate
+from app.schemas.boia import BoiaCreate, BoiaUpdate
 from app.services.boia_service import BoiaService
 
 router = APIRouter(tags=["boias"])
@@ -45,3 +45,17 @@ def listar_boias(db: Session = Depends(get_db)):
 @router.get("/boias/{boia_id}")
 def buscar_boia(boia_id: int, db: Session = Depends(get_db)):
     return service.buscar_boia_por_id(db, boia_id)
+
+
+@router.put("/boias/{boia_id}")
+def atualizar_boia(
+    boia_id: int,
+    dados: BoiaUpdate,
+    db: Session = Depends(get_db),
+):
+    return service.atualizar_boia(db, boia_id, dados)
+
+
+@router.delete("/boias/{boia_id}")
+def excluir_boia(boia_id: int, db: Session = Depends(get_db)):
+    return service.excluir_boia(db, boia_id)
