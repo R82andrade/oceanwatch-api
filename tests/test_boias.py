@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -7,9 +9,10 @@ client = TestClient(app)
 
 
 def test_criar_boia():
+    numero_serie = f"TEST-{uuid.uuid4()}"
     payload = {
-        "nome": "Boia RJ-001",
-        "numero_serie": "OW-0002",
+        "nome": "Boia Teste",
+        "numero_serie": numero_serie,
         "latitude": -22.90,
         "longitude": -43.20,
     }
@@ -17,5 +20,5 @@ def test_criar_boia():
     response = client.post("/boias", json=payload)
 
     assert response.status_code == 200
-    assert response.json()["nome"] == "Boia RJ-001"
-    assert response.json()["numero_serie"] == "OW-0002"
+    assert response.json()["nome"] == "Boia Teste"
+    assert response.json()["numero_serie"] == numero_serie
